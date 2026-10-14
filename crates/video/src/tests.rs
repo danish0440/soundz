@@ -191,7 +191,7 @@ fn ffmpeg_dir() -> Option<std::path::PathBuf> {
         eprintln!("skipping: ffmpeg not on PATH");
         return None;
     }
-    let dir = std::env::temp_dir().join(format!("soundcraft-video-test-{}", std::process::id()));
+    let dir = std::env::temp_dir().join(format!("soundz-video-test-{}", std::process::id()));
     std::fs::create_dir_all(&dir).ok()?;
     Some(dir)
 }

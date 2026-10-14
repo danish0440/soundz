@@ -3,10 +3,10 @@
 use crate::theme::mono;
 use egui::{Id, RichText, TextEdit, Ui, vec2};
 use serde_json::{Value, json};
-use soundcraft_engine::cmd::MAX_POSITION;
-use soundcraft_engine::edit::first_movable;
-use soundcraft_model::{ClipId, Session, SourceId, TrackId};
-use soundcraft_time::{Samples, TimeFormat, format_length};
+use soundz_engine::cmd::MAX_POSITION;
+use soundz_engine::edit::first_movable;
+use soundz_model::{ClipId, Session, SourceId, TrackId};
+use soundz_time::{Samples, TimeFormat, format_length};
 
 #[derive(Debug, Clone)]
 pub enum Target {

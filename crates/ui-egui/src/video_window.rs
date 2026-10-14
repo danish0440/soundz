@@ -6,8 +6,8 @@ use crate::theme::{mono, regular};
 use crate::video_track::{MovieKey, movie_secs, online, picture_at};
 use egui::{Align2, Color32, Rect, Sense, pos2, vec2};
 use serde_json::json;
-use soundcraft_model::{ClipContent, TrackKind};
-use soundcraft_time::TimeFormat;
+use soundz_model::{ClipContent, TrackKind};
+use soundz_time::TimeFormat;
 
 pub fn show(app: &mut SoundApp, ctx: &egui::Context) {
     if app.ui.show_video {
@@ -101,7 +101,7 @@ fn strip_position(x: f32, left: f32, width: f32, end: i64, clip_start: i64) -> i
     (((x - left) / width * end as f32) as i64).max(clip_start)
 }
 
-fn first_movie_aspect(s: &soundcraft_model::Session) -> Option<f32> {
+fn first_movie_aspect(s: &soundz_model::Session) -> Option<f32> {
     s.videos.first().map(|v| v.aspect() as f32)
 }
 
@@ -184,7 +184,7 @@ mod tests {
         // A clip at 48_000 has its left edge at x = 148.
         assert_eq!(strip_position(148.0, LEFT, WIDTH, END, 48_000), 48_000);
         assert_eq!(strip_position(248.0, LEFT, WIDTH, END, 48_000), 148_000);
-        let s = soundcraft_model::Session::default();
+        let s = soundz_model::Session::default();
         let at = strip_position(148.0, LEFT, WIDTH, END, 48_000);
         assert_eq!(crate::video_track::movie_secs(&s, 48_000, 0, at), 0.0, "the clip's left edge shows the movie's first picture");
     }

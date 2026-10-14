@@ -5,8 +5,8 @@ use super::more_util::{set_text, store_value, text, toggle_flag, values_with_pre
 use super::*;
 use crate::cmd;
 use serde_json::json;
-use soundcraft_model::{BusId, ChannelFormat, ClipContent, OutputPath, Route, Session, SourceId, TrackId, TrackKind};
-use soundcraft_time::Timecode;
+use soundz_model::{BusId, ChannelFormat, ClipContent, OutputPath, Route, Session, SourceId, TrackId, TrackKind};
+use soundz_time::Timecode;
 use std::path::{Path, PathBuf};
 
 macro_rules! option {
@@ -143,7 +143,7 @@ fn prepare_dpe(e: &mut Engine, p: &Value) -> Result<Value> {
     if end <= 0 {
         return Err(bad(id, "there is no audio to prepare"));
     }
-    let r = soundcraft_time::Range::new(0, end);
+    let r = soundz_time::Range::new(0, end);
     let mut n = 0;
     for t in tracks {
         // Each track keeps its own length (its material plus a second), as before.
@@ -319,7 +319,7 @@ fn current_feet_frames(e: &mut Engine, p: &Value) -> Result<Value> {
     let at = s.edit.selection.start.max(0);
     let frames_at = s.frame_rate.frames_at(at, s.sample_rate);
     let start = ft * 16 + fr - frames_at;
-    s.edit.values.insert(soundcraft_model::FEET_FRAMES_START.into(), start as f64);
+    s.edit.values.insert(soundz_model::FEET_FRAMES_START.into(), start as f64);
     Ok(json!({"feet_frames_start": start}))
 }
 
@@ -410,7 +410,7 @@ fn import_session_data(e: &mut Engine, p: &Value) -> Result<Value> {
     let dir = Path::new(&path).parent().map(Path::to_path_buf).unwrap_or_default();
     let names: Option<Vec<String>> =
         p.get("tracks").and_then(Value::as_array).map(|a| a.iter().filter_map(Value::as_str).map(str::to_string).collect());
-    let picked: Vec<soundcraft_model::Track> = match &names {
+    let picked: Vec<soundz_model::Track> = match &names {
         Some(ns) => {
             let mut v = Vec::new();
             for n in ns {
@@ -543,7 +543,7 @@ mod tests {
         e.execute("edit.select", &json!({"start": 48_000})).unwrap();
         e.execute("setup.current_timecode", &json!({"timecode": "01:00:00:00"})).unwrap();
         let s = e.session();
-        let shown = s.format_position(48_000, soundcraft_time::TimeFormat::Timecode);
+        let shown = s.format_position(48_000, soundz_time::TimeFormat::Timecode);
         assert_eq!(shown, "01:00:00:00");
     }
 
@@ -602,8 +602,8 @@ mod tests {
         let _ = std::fs::remove_dir_all(&dir);
         std::fs::create_dir_all(&dir).unwrap();
         let wav = dir.join("hit.wav");
-        let buf = soundcraft_audio_io::AudioBuffer { sample_rate: 48_000, channels: vec![vec![0.5; 4_800]] };
-        std::fs::write(&wav, soundcraft_audio_io::encode(&buf, &soundcraft_audio_io::EncodeOptions::default()).unwrap()).unwrap();
+        let buf = soundz_audio_io::AudioBuffer { sample_rate: 48_000, channels: vec![vec![0.5; 4_800]] };
+        std::fs::write(&wav, soundz_audio_io::encode(&buf, &soundz_audio_io::EncodeOptions::default()).unwrap()).unwrap();
         let mut donor = Engine::default();
         donor.execute("track.new", &json!({"count": 1, "name": "Pads", "kind": "instrument"})).unwrap();
         donor.execute("mix.sampler_load", &json!({"track": "Pads", "path": wav.to_string_lossy()})).unwrap();

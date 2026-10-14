@@ -8,24 +8,24 @@ version = "0.6.1"
 edition = "2024"
 license = "MIT OR Apache-2.0"
 rust-version = "1.90"
-repository = "https://github.com/storytold/soundcraft"
+repository = "https://github.com/danish0440/soundz"
 
 [workspace.dependencies]
 # internal
-soundcraft-time = { path = "crates/time" }
-soundcraft-audio-io = { path = "crates/audio-io" }
-soundcraft-midi = { path = "crates/midi" }
-soundcraft-video = { path = "crates/video" }
-soundcraft-dsp = { path = "crates/dsp" }
-soundcraft-clap-host = { path = "crates/clap-host" }
-soundcraft-vst3-host = { path = "crates/vst3-host" }
-soundcraft-au-host = { path = "crates/au-host" }
-soundcraft-model = { path = "crates/model" }
-soundcraft-mix = { path = "crates/mix" }
-soundcraft-engine = { path = "crates/engine" }
-soundcraft-playback = { path = "crates/playback" }
-soundcraft-automation = { path = "crates/automation" }
-soundcraft-ui-egui = { path = "crates/ui-egui" }
+soundz-time = { path = "crates/time" }
+soundz-audio-io = { path = "crates/audio-io" }
+soundz-midi = { path = "crates/midi" }
+soundz-video = { path = "crates/video" }
+soundz-dsp = { path = "crates/dsp" }
+soundz-clap-host = { path = "crates/clap-host" }
+soundz-vst3-host = { path = "crates/vst3-host" }
+soundz-au-host = { path = "crates/au-host" }
+soundz-model = { path = "crates/model" }
+soundz-mix = { path = "crates/mix" }
+soundz-engine = { path = "crates/engine" }
+soundz-playback = { path = "crates/playback" }
+soundz-automation = { path = "crates/automation" }
+soundz-ui-egui = { path = "crates/ui-egui" }
 
 # foundation
 thiserror = "2"

@@ -5,10 +5,10 @@ use egui::{Event, Modifiers, PointerButton, Pos2, vec2};
 use egui_kittest::Harness;
 use egui_kittest::kittest::Queryable;
 use serde_json::json;
-use soundcraft_ui_egui::{MainWindow, Services, SoundApp};
+use soundz_ui_egui::{MainWindow, Services, SoundApp};
 
-fn harness() -> (Harness<'static, SoundApp>, soundcraft_model::TrackId) {
-    let mut engine = soundcraft_engine::Engine::default();
+fn harness() -> (Harness<'static, SoundApp>, soundz_model::TrackId) {
+    let mut engine = soundz_engine::Engine::default();
     engine.execute("track.new", &json!({"name": "Vox"})).unwrap();
     let vox = engine.session().tracks[0].id;
     for (slot, bus) in [(0, "Verb"), (1, "Delay")] {

@@ -1,0 +1,21 @@
+[package]
+name = "soundz-cli"
+description = "SoundZ command line: headless editing, conversion, bounce, MCP server, app control"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[[bin]]
+name = "soundz-cli"
+path = "src/main.rs"
+
+[lints]
+workspace = true
+
+[dependencies]
+soundz-engine.workspace = true
+soundz-automation.workspace = true
+soundz-audio-io.workspace = true
+soundz-dsp.workspace = true
+serde_json.workspace = true

@@ -1,13 +1,13 @@
 use egui::{Shape, vec2};
 use serde_json::json;
-use soundcraft_ui_egui::mix_window::strip_width;
-use soundcraft_ui_egui::{Services, SoundApp};
+use soundz_ui_egui::mix_window::strip_width;
+use soundz_ui_egui::{Services, SoundApp};
 
 const FULL: [&str; 7] = ["INSERTS A-E", "INSERTS F-J", "SENDS A-E", "SENDS F-J", "INSTRUMENT", "comments", "no group"];
 const SHORT: [&str; 6] = ["I A-E", "I F-J", "S A-E", "S F-J", "INST", "nogrp"];
 
 fn painted_labels(narrow: bool) -> Vec<(String, f32, bool)> {
-    let mut app = SoundApp::new(soundcraft_engine::demo::demo_engine(), None, Services::default());
+    let mut app = SoundApp::new(soundz_engine::demo::demo_engine(), None, Services::default());
     app.run("window.mix", json!({})).unwrap();
     app.run("view.mix_section", json!({"section": "all"})).unwrap();
     app.run("view.mix_section", json!({"section": "instruments"})).unwrap();

@@ -1,5 +1,5 @@
 use proptest::prelude::*;
-use soundcraft_midi::*;
+use soundz_midi::*;
 
 fn vlq(mut v: u32) -> Vec<u8> {
     let mut out = vec![(v & 0x7F) as u8];

@@ -329,7 +329,7 @@ fn cancel_replaced_workspace(app: &crate::SoundApp, previous: &Workspace, next: 
     if (previous.layout != next.layout || previous.hidden != next.hidden)
         && let Some(ctx) = &app.docking_context
     {
-        craft_ui::docking::cancel_drag::<Panel>(ctx, egui::Id::new(("soundcraft-docking", edit)));
+        craft_ui::docking::cancel_drag::<Panel>(ctx, egui::Id::new(("soundz-docking", edit)));
     }
 }
 
@@ -407,7 +407,7 @@ pub fn show(app: &mut crate::SoundApp, ui: &mut egui::Ui, window: crate::MainWin
     style.border = egui::Stroke::new(1.0, t.border);
     style.accent = t.accent;
     style.font = crate::theme::regular(11.5);
-    let output = DockArea::new(egui::Id::new(("soundcraft-docking", edit))).show_with_limits(
+    let output = DockArea::new(egui::Id::new(("soundz-docking", edit))).show_with_limits(
         ui,
         &workspace.layout,
         &style,
@@ -426,7 +426,7 @@ pub fn show(app: &mut crate::SoundApp, ui: &mut egui::Ui, window: crate::MainWin
             Panel::Tracks => crate::panels::tracks_and_groups(app, ui),
             Panel::Clips => crate::panels::clip_list(app, ui),
             Panel::Midi => {
-                ui.ctx().data_mut(|data| data.insert_temp(egui::Id::new("soundcraft-midi-body"), ui.max_rect()));
+                ui.ctx().data_mut(|data| data.insert_temp(egui::Id::new("soundz-midi-body"), ui.max_rect()));
                 minimum_body(ui, egui::vec2(420.0, 260.0), |ui| crate::midi_editor::show(app, ui));
             }
             Panel::Memory => crate::panels::memory_locations(app, ui),

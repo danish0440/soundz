@@ -1,34 +1,34 @@
 # MCP server
 
-SoundCraft speaks the [Model Context Protocol](https://modelcontextprotocol.io) over stdio, so
+SoundZ speaks the [Model Context Protocol](https://modelcontextprotocol.io) over stdio, so
 Claude and other agents can make music with it.
 
 ```sh
-soundcraft-cli mcp                    # headless engine (no window, no audio device)
-soundcraft-cli mcp --demo             # headless, starting from the demo session
-soundcraft-cli mcp --automation-read-root DIR --automation-write-root DIR   # headless, confined to folders
-soundcraft --control 7801 &           # the desktop app…
-soundcraft-cli mcp --connect 7801     # …driven over MCP: same tools plus screenshots and clicks
+soundz-cli mcp                    # headless engine (no window, no audio device)
+soundz-cli mcp --demo             # headless, starting from the demo session
+soundz-cli mcp --automation-read-root DIR --automation-write-root DIR   # headless, confined to folders
+soundz --control 7801 &           # the desktop app…
+soundz-cli mcp --connect 7801     # …driven over MCP: same tools plus screenshots and clicks
 ```
 
 Claude Code:
 
 ```sh
-claude mcp add soundcraft -- soundcraft-cli mcp --demo
+claude mcp add soundz -- soundz-cli mcp --demo
 ```
 
 ## Confining file access
 
 ```sh
-soundcraft-cli mcp --automation-read-root /work/project --automation-write-root /work/project/out
+soundz-cli mcp --automation-read-root /work/project --automation-write-root /work/project/out
 ```
 
 ```json
-{"mcpServers": {"soundcraft": {"command": "soundcraft-cli",
+{"mcpServers": {"soundz": {"command": "soundz-cli",
   "args": ["mcp", "--automation-read-root", "/work/project", "--automation-write-root", "/work/project/out"]}}}
 ```
 
-The two flags (VectorCraft and the other Craft apps take the same ones, so one client config
+The two flags (VectorZ and the other Craft apps take the same ones, so one client config
 works across the suite) keep the agent to the folders you give it:
 
 - Every file a command reads must lie inside the **read root**: `open_session`, `session.open`,
@@ -63,11 +63,11 @@ works across the suite) keep the agent to the folders you give it:
   error rather than an unconfined server.
 
 The flags confine the in-process server, so `--connect` together with them is an error: the server
-would otherwise talk to an app that isn't confined. SoundCraft's desktop app has no equivalent flags
-yet, so a running app (`soundcraft --control`) is not confined. `--demo` is the operator's own
+would otherwise talk to an app that isn't confined. SoundZ's desktop app has no equivalent flags
+yet, so a running app (`soundz --control`) is not confined. `--demo` is the operator's own
 choice and is built before the roots apply.
 
-Playback and bounce need no check of their own. SoundCraft decodes audio into the session when it
+Playback and bounce need no check of their own. SoundZ decodes audio into the session when it
 enters it (import, open, sampler load), so rendering reads nothing from disk afterwards. Movies are
 the exception: a session only references them by path and the desktop app decodes pictures from
 that file, but the headless server never does, and the movie's path is checked when it is imported
@@ -98,7 +98,7 @@ files it was given rather than guarding against other software on the computer.
 | `parity` | Feature-parity report. |
 | `screenshot`, `ui_inspect`, `ui_set`, `menu_invoke`, `click`, `drag`, `key` | App only (with `--connect`). |
 
-Resources: `soundcraft://session` (full session JSON), `soundcraft://commands`.
+Resources: `soundz://session` (full session JSON), `soundz://commands`.
 
 ## Conventions
 

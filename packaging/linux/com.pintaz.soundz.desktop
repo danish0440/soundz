@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=SoundZ
+GenericName=Digital Audio Workstation
+Comment=Record, edit and mix audio and MIDI
+Exec=soundz %F
+TryExec=soundz
+Icon=com.pintaz.soundz
+Terminal=false
+StartupNotify=true
+StartupWMClass=com.pintaz.soundz
+Categories=AudioVideo;Audio;Midi;Mixer;Sequencer;Recorder;
+MimeType=application/x-soundz-session;audio/x-wav;audio/wav;audio/vnd.wave;audio/x-aiff;audio/aiff;audio/flac;audio/x-flac;audio/mpeg;audio/midi;audio/x-midi;
+Keywords=daw;audio;mixer;recording;multitrack;midi;editor;music;

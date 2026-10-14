@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  SoundZ MSI (WiX Toolset v5: `dotnet tool install -g wix`). Built by package.ps1:
+
+    wix build soundz.wxs -arch x64 -d Version=1.2.3 -d BinDir=... -d IconPath=... -o out.msi
+
+  Per-machine install into Program Files, a Start Menu shortcut, `.scraft` sessions owned by
+  SoundZ, and SoundZ offered under "Open with" for WAV/AIFF/FLAC/MP3 and MIDI files
+  (without taking over the user's default player for them).
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package
+      Name="SoundZ"
+      Manufacturer="Learning Machines LLC"
+      Version="$(var.Version)"
+      UpgradeCode="949A70A5-395A-52E4-B4DA-48B54AABCB78"
+      Scope="perMachine"
+      Compressed="yes"
+      Language="1033">
+    <SummaryInformation Description="SoundZ digital audio workstation" Manufacturer="Learning Machines LLC" />
+    <!-- Same-version upgrades let successive pre-releases of one X.Y.Z replace each other
+         (MSI versions are numeric, so 1.2.3-rc.1 and 1.2.3-rc.2 are both 1.2.3). -->
+    <MajorUpgrade AllowSameVersionUpgrades="yes"
+        DowngradeErrorMessage="A newer version of SoundZ is already installed." />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <Icon Id="SoundzIcon.ico" SourceFile="$(var.IconPath)" />
+    <Property Id="ARPPRODUCTICON" Value="SoundzIcon.ico" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/danish0440/soundz" />
+    <Property Id="ARPURLUPDATEINFO" Value="https://github.com/danish0440/soundz" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/danish0440/soundz/issues" />
+
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" Name="SoundZ" />
+    </StandardDirectory>
+    <StandardDirectory Id="ProgramMenuFolder" />
+
+    <Feature Id="Main" Title="SoundZ" Level="1">
+      <ComponentGroupRef Id="SoundzFiles" />
+    </Feature>
+  </Package>
+
+  <Fragment>
+    <ComponentGroup Id="SoundzFiles" Directory="INSTALLFOLDER">
+      <Component Id="SoundzApp" Guid="A30FEA74-4E30-519E-B637-5599ECA54C80">
+        <File Id="SoundzExe" Source="$(var.BinDir)\soundz.exe" KeyPath="yes">
+          <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="SoundZ"
+              Description="SoundZ digital audio workstation" WorkingDirectory="INSTALLFOLDER" Advertise="yes"
+              Icon="SoundzIcon.ico" IconIndex="0" />
+        </File>
+
+        <!-- .scraft: SoundZ's own session format; SoundZ is its default app. -->
+        <ProgId Id="SoundZ.Session" Description="SoundZ Session" Icon="SoundzExe" IconIndex="0">
+          <Extension Id="scraft" ContentType="application/x-soundz-session">
+            <Verb Id="open" Command="Open" TargetFile="SoundzExe" Argument="&quot;%1&quot;" />
+          </Extension>
+        </ProgId>
+        <!-- Audio and MIDI files: offered under "Open with" (imported into a session), never forced
+             as the default. -->
+        <ProgId Id="SoundZ.Audio" Description="Audio File" Icon="SoundzExe" IconIndex="0" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\SoundZ.Audio\shell\open\command" Value="&quot;[#SoundzExe]&quot; &quot;%1&quot;" Type="string" />
+        <ProgId Id="SoundZ.Midi" Description="MIDI File" Icon="SoundzExe" IconIndex="0" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\SoundZ.Midi\shell\open\command" Value="&quot;[#SoundzExe]&quot; &quot;%1&quot;" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\.wav\OpenWithProgids" Name="SoundZ.Audio" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\.aif\OpenWithProgids" Name="SoundZ.Audio" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\.aiff\OpenWithProgids" Name="SoundZ.Audio" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\.flac\OpenWithProgids" Name="SoundZ.Audio" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\.mp3\OpenWithProgids" Name="SoundZ.Audio" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\.mid\OpenWithProgids" Name="SoundZ.Midi" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\.midi\OpenWithProgids" Name="SoundZ.Midi" Value="" Type="string" />
+
+        <!-- "Open with" app list and the Run dialog (Win+R "soundz"). -->
+        <RegistryValue Root="HKLM" Key="Software\Classes\Applications\soundz.exe" Name="FriendlyAppName" Value="SoundZ" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\Applications\soundz.exe\shell\open\command" Value="&quot;[#SoundzExe]&quot; &quot;%1&quot;" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\Applications\soundz.exe\SupportedTypes" Name=".scraft" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\Applications\soundz.exe\SupportedTypes" Name=".wav" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\Applications\soundz.exe\SupportedTypes" Name=".aif" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\Applications\soundz.exe\SupportedTypes" Name=".aiff" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\Applications\soundz.exe\SupportedTypes" Name=".flac" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\Applications\soundz.exe\SupportedTypes" Name=".mp3" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\Applications\soundz.exe\SupportedTypes" Name=".mid" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\Applications\soundz.exe\SupportedTypes" Name=".midi" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\App Paths\soundz.exe" Value="[#SoundzExe]" Type="string" />
+      </Component>
+
+      <Component Id="SoundzCli" Guid="3B3344BA-5F16-5FCD-8DF0-77A4385F8EB2">
+        <File Id="SoundzCliExe" Source="$(var.BinDir)\soundz-cli.exe" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

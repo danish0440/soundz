@@ -1,10 +1,10 @@
 //! Third-party CLAP plugins: discovery (`engine.clap_plugins`) and id lookup shared by the mixer
-//! commands. Hosting itself lives in `soundcraft-clap-host`.
+//! commands. Hosting itself lives in `soundz-clap-host`.
 
 use super::*;
 use crate::cmd;
 use serde_json::json;
-use soundcraft_dsp::PluginInfo;
+use soundz_dsp::PluginInfo;
 
 pub fn specs() -> Vec<CommandSpec> {
     vec![cmd!(
@@ -16,9 +16,9 @@ pub fn specs() -> Vec<CommandSpec> {
         always,
         |_, p| {
             let list = if p.get("rescan").and_then(Value::as_bool).unwrap_or(false) {
-                soundcraft_clap_host::rescan()
+                soundz_clap_host::rescan()
             } else {
-                soundcraft_clap_host::scan()
+                soundz_clap_host::scan()
             };
             Ok(json!(list))
         }
@@ -28,10 +28,10 @@ pub fn specs() -> Vec<CommandSpec> {
 /// A built-in plugin's description, else a hosted CLAP (`clap:<id>`), VST3 (`vst3:<class id>`) or
 /// Audio Units (`au:<type>:<subtype>:<manufacturer>`) plugin's.
 pub fn plugin_info(id: &str) -> Option<&'static PluginInfo> {
-    soundcraft_dsp::plugin_info(id)
-        .or_else(|| soundcraft_clap_host::plugin_info(id))
-        .or_else(|| soundcraft_vst3_host::plugin_info(id))
-        .or_else(|| soundcraft_au_host::plugin_info(id))
+    soundz_dsp::plugin_info(id)
+        .or_else(|| soundz_clap_host::plugin_info(id))
+        .or_else(|| soundz_vst3_host::plugin_info(id))
+        .or_else(|| soundz_au_host::plugin_info(id))
 }
 
 #[cfg(test)]

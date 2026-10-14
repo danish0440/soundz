@@ -2,10 +2,10 @@
 //! with the same mix without them.
 #![allow(clippy::unwrap_used, clippy::expect_used, clippy::panic)]
 
-use soundcraft_audio_io::AudioBuffer;
-use soundcraft_mix::{MixEngine, render_range};
-use soundcraft_model::{ChannelFormat, Clip, Insert, Route, Session, SourceAudio, SourceId, TrackKind};
-use soundcraft_time::Range;
+use soundz_audio_io::AudioBuffer;
+use soundz_mix::{MixEngine, render_range};
+use soundz_model::{ChannelFormat, Clip, Insert, Route, Session, SourceAudio, SourceId, TrackKind};
+use soundz_time::Range;
 use std::sync::Arc;
 
 const AT: usize = 2000;
