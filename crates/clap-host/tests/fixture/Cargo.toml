@@ -1,4 +1,4 @@
-# A tiny CLAP plugin used only by soundz-clap-host's integration tests. Not part of the
+# A tiny CLAP plugin used only by SoundZ's integration tests. Not part of the
 # SoundZ workspace (the empty [workspace] table makes it its own root); the test builds it
 # with `cargo build` and loads the resulting library. Never shipped.
 [package]

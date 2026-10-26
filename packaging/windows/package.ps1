@@ -90,6 +90,9 @@ Copy-Item (Join-Path $Bin 'soundz.exe'), (Join-Path $Bin 'soundz-cli.exe') $Stag
 
 & (Join-Path $PSScriptRoot 'sign.ps1') (Join-Path $Stage 'soundz.exe') (Join-Path $Stage 'soundz-cli.exe')
 
+# Required embedded-font notices ship independently of optional font inputs.
+Copy-Item -LiteralPath (Join-Path $Root 'NOTICE') -Destination $Stage
+
 # ---- MSI ---------------------------------------------------------------------------------------
 $Msi = Join-Path $Dist "soundz-$Version-windows-$Arch.msi"
 Invoke-Native 'wix build' {
