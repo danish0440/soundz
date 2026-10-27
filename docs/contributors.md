@@ -23,7 +23,7 @@ this page is the local copy of the decision.
 
 ## In SoundZ
 
-- The About window is `about()` in `crates/ui-egui/src/panels.rs` (menu "About SoundZ", command `window.about`).
+- The About window is `about()` in `crates/ui-egui/src/panels/about.rs` (menu "About SoundZ", command `window.about`).
 
 ## Credit yourself
 

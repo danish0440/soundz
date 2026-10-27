@@ -15,10 +15,10 @@ path = "src/main.rs"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 soundz-engine = { workspace = true }
-soundz-ui-egui = { workspace = true }
+soundz-ui-egui.workspace = true
 soundz-playback = { workspace = true }
 soundz-model = { workspace = true }
-egui = { workspace = true }
+egui = { workspace = true, features = ["default_fonts", "monochrome_emoji_fonts"] }
 log = { workspace = true }
 serde_json = { workspace = true }
 rfd = { workspace = true }

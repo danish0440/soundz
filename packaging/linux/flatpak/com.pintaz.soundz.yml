@@ -71,6 +71,7 @@ modules:
     build-commands:
       - cargo --offline build --release --locked -p soundz -p soundz-cli
       - install -Dm755 target/release/soundz /app/bin/soundz
+      - install -Dm644 NOTICE /app/share/doc/soundz/NOTICE
       - install -Dm755 target/release/soundz-cli /app/bin/soundz-cli
       - install -Dm644 packaging/linux/com.pintaz.soundz.desktop /app/share/applications/com.pintaz.soundz.desktop
       - install -Dm644 packaging/linux/com.pintaz.soundz.mime.xml /app/share/mime/packages/com.pintaz.soundz.xml

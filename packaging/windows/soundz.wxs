@@ -42,6 +42,9 @@
 
   <Fragment>
     <ComponentGroup Id="SoundzFiles" Directory="INSTALLFOLDER">
+      <Component Id="SoundzNotice">
+        <File Id="SoundzNoticeFile" Source="$(var.BinDir)\NOTICE" KeyPath="yes" />
+      </Component>
       <Component Id="SoundzApp" Guid="A30FEA74-4E30-519E-B637-5599ECA54C80">
         <File Id="SoundzExe" Source="$(var.BinDir)\soundz.exe" KeyPath="yes">
           <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="SoundZ"

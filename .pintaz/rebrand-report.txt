@@ -1,6 +1,6 @@
 rebrand soundcraft -> SoundZ
-about credit inserted in: ['crates/ui-egui/src/panels.rs (fallback, after line 624)']
+about credit inserted in: ['crates/ui-egui/src/panels/about.rs (fallback, after line 26)']
 launcher patches: []
 lines still naming ArtCraft/getartcraft/discord (non-doc): 2
-crates/ui-egui/src/panels.rs:625: // PINTAZ-ABOUT: required credit (Apache-2.0 change notice; ArtCraft brand licence)
-crates/ui-egui/src/panels.rs:627: ui.label("Based on SoundCraft by Storytold (ArtCraft), Apache-2.0. Changes by PINTAZ TECHNOLOGIES.");
+crates/ui-egui/src/panels/about.rs:27: // PINTAZ-ABOUT: required credit (Apache-2.0 change notice; ArtCraft brand licence)
+crates/ui-egui/src/panels/about.rs:29: ui.label("Based on SoundCraft by Storytold (ArtCraft), Apache-2.0. Changes by PINTAZ TECHNOLOGIES.");
