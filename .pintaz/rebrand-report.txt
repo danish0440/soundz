@@ -1,6 +1,17 @@
 rebrand soundcraft -> SoundZ
-about credit inserted in: ['crates/ui-egui/src/panels.rs (fallback, after line 624)']
+about credit inserted in: ['crates/ui-egui/src/panels/about.rs (fallback, after line 26)']
 launcher patches: []
-lines still naming ArtCraft/getartcraft/discord (non-doc): 2
-crates/ui-egui/src/panels.rs:625: // PINTAZ-ABOUT: required credit (Apache-2.0 change notice; ArtCraft brand licence)
-crates/ui-egui/src/panels.rs:627: ui.label("Based on SoundCraft by Storytold (ArtCraft), Apache-2.0. Changes by PINTAZ TECHNOLOGIES.");
+lines still naming ArtCraft/getartcraft/discord (non-doc): 13
+crates/ui-egui/src/panels/about.rs:27: // PINTAZ-ABOUT: required credit (Apache-2.0 change notice; ArtCraft brand licence)
+crates/ui-egui/src/panels/about.rs:29: ui.label("Based on SoundCraft by Storytold (ArtCraft), Apache-2.0. Changes by PINTAZ TECHNOLOGIES.");
+packaging/windows/install-policy.wxi:34: <SetProperty Id="INSTALLFOLDER" Action="CraftDefaultMachineFolder" Value="[%ProgramFiles(x86)]\ArtCraft\SoundZ\" After="CraftRestoreUserFolder" Sequence="ui" Co
+packaging/windows/install-policy.wxi:35: <SetProperty Id="INSTALLFOLDER" Action="CraftDefaultMachineFolder32" Value="[%ProgramFiles]\ArtCraft\SoundZ\" After="CraftDefaultMachineFolder" Sequence="ui" Co
+packaging/windows/install-policy.wxi:36: <SetProperty Id="INSTALLFOLDER" Action="CraftDefaultUserFolder" Value="[LocalAppDataFolder]Programs\ArtCraft\SoundZ\" After="CraftDefaultMachineFolder32" Sequen
+packaging/windows/install-policy.wxi:38: <SetProperty Id="INSTALLFOLDER" Action="CraftDefaultMachineFolder" Value="[%ProgramW6432]\ArtCraft\SoundZ\" After="CraftRestoreUserFolder" Sequence="ui" Conditi
+packaging/windows/install-policy.wxi:39: <SetProperty Id="INSTALLFOLDER" Action="CraftDefaultUserFolder" Value="[LocalAppDataFolder]Programs\ArtCraft\SoundZ\" After="CraftDefaultMachineFolder" Sequence
+packaging/windows/install-policy.wxi:49: <Control Id="Info" Type="Text" X="20" Y="50" Width="330" Height="30" Text="{\CraftScopeText}An update keeps the existing folder. New copies use the ArtCraft fol
+packaging/windows/check-install-policy.ps1:58: if ($dirs['INSTALLFOLDER'][0] -ne 'CraftSuiteFolder' -or $dirs['CraftSuiteFolder'][1] -ne 'ArtCraft' -or
+packaging/windows/check-install-policy.ps1:60: throw 'Launcher new-install folder must be under the per-user ArtCraft suite root.'
+packaging/windows/check-install-policy.ps1:91: $directories['CraftSuiteFolder'][1] -ne 'ArtCraft') { throw 'Expected the app under the ArtCraft suite folder.' }
+packaging/windows/check-install-policy.ps1:164: $machineFolder = (Join-Path $machineRoot "ArtCraft\$($policy.name)") + '\'
+packaging/windows/check-install-policy.ps1:174: $wanted = if ($scope -eq '1') { $machineFolder } else { (Join-Path $env:LOCALAPPDATA "Programs\ArtCraft\$($policy.name)") + '\' }
