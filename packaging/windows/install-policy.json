@@ -1,0 +1,141 @@
+{
+  "id": "soundz",
+  "name": "SoundZ",
+  "upgradeCode": "EE53D3E5-D0AE-40F9-808D-9417FDEBF61A",
+  "sources": [
+    "soundz.wxs"
+  ],
+  "icon": "assets/app-icon/soundz.ico",
+  "localization": [],
+  "extensions": [
+    "UI"
+  ],
+  "payloads": [
+    "NOTICE",
+    "soundz-cli.exe",
+    "soundz.exe"
+  ],
+  "registry": [
+    [
+      "-1",
+      "Software\\Classes\\SoundZ.Audio\\shell\\open\\command",
+      "",
+      "\"[#SoundzExe]\" \"%1\""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\SoundZ.Midi\\shell\\open\\command",
+      "",
+      "\"[#SoundzExe]\" \"%1\""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\.wav\\OpenWithProgids",
+      "SoundZ.Audio",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\.aif\\OpenWithProgids",
+      "SoundZ.Audio",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\.aiff\\OpenWithProgids",
+      "SoundZ.Audio",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\.flac\\OpenWithProgids",
+      "SoundZ.Audio",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\.mp3\\OpenWithProgids",
+      "SoundZ.Audio",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\.mid\\OpenWithProgids",
+      "SoundZ.Midi",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\.midi\\OpenWithProgids",
+      "SoundZ.Midi",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\Applications\\soundz.exe",
+      "FriendlyAppName",
+      "SoundZ"
+    ],
+    [
+      "-1",
+      "Software\\Classes\\Applications\\soundz.exe\\shell\\open\\command",
+      "",
+      "\"[#SoundzExe]\" \"%1\""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\Applications\\soundz.exe\\SupportedTypes",
+      ".scraft",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\Applications\\soundz.exe\\SupportedTypes",
+      ".wav",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\Applications\\soundz.exe\\SupportedTypes",
+      ".aif",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\Applications\\soundz.exe\\SupportedTypes",
+      ".aiff",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\Applications\\soundz.exe\\SupportedTypes",
+      ".flac",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\Applications\\soundz.exe\\SupportedTypes",
+      ".mp3",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\Applications\\soundz.exe\\SupportedTypes",
+      ".mid",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Classes\\Applications\\soundz.exe\\SupportedTypes",
+      ".midi",
+      ""
+    ],
+    [
+      "-1",
+      "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\soundz.exe",
+      "",
+      "[#SoundzExe]"
+    ]
+  ],
+  "mode": "dualScope"
+}

@@ -268,9 +268,12 @@ impl TempoMap {
         let first = self.meter_at_tick(0);
         if tick < 0 {
             let tpb = first.ticks_per_bar();
-            let bars_back = (-tick + tpb - 1) / tpb;
-            let bar_tick = -bars_back * tpb;
-            let within = tick - bar_tick;
+            let abs = tick.unsigned_abs();
+            let tpb_u = tpb.unsigned_abs();
+            let bars_back_u = abs / tpb_u + u64::from(!abs.is_multiple_of(tpb_u));
+            let bars_back = i64::try_from(bars_back_u).unwrap_or(i64::MAX);
+            // Offset of `tick` inside its bar, without negating `i64::MIN`.
+            let within = ((tpb_u - abs % tpb_u) % tpb_u) as i64;
             let beat_t = first.ticks_per_beat();
             return BarBeat { bar: 1 - bars_back, beat: within / beat_t + 1, tick: within % beat_t };
         }
@@ -298,7 +301,7 @@ impl TempoMap {
     pub fn tick_at_bar_beat(&self, bb: BarBeat) -> i64 {
         let start = self.bar_start_tick(bb.bar);
         let m = self.meter_at_tick(start);
-        start.saturating_add((bb.beat - 1).max(0).saturating_mul(m.ticks_per_beat())).saturating_add(bb.tick)
+        start.saturating_add(bb.beat.saturating_sub(1).max(0).saturating_mul(m.ticks_per_beat())).saturating_add(bb.tick)
     }
 
     pub fn bar_beat_at(&self, s: Samples, sr: SampleRate) -> BarBeat {
@@ -339,6 +342,21 @@ mod tests {
         let m = TempoMap::default();
         assert_eq!(m.bar_start_tick(i64::MIN), i64::MIN);
         assert_eq!(m.bar_start_tick(0), -TICKS_PER_QUARTER * 4);
+    }
+
+    #[test]
+    fn minimum_beat_is_clamped_without_overflow() {
+        let m = TempoMap::default();
+        assert_eq!(m.tick_at_bar_beat(BarBeat { bar: 1, beat: i64::MIN, tick: 0 }), 0);
+    }
+
+    #[test]
+    fn bar_beat_at_min_tick_does_not_overflow() {
+        let m = TempoMap::default();
+        let bb = m.bar_beat_at_tick(i64::MIN);
+        assert!(bb.bar < 1);
+        assert!(bb.beat >= 1 && bb.tick >= 0);
+        assert_eq!(m.bar_beat_at_tick(-1).bar, 0);
     }
 
     #[test]
