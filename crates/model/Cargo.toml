@@ -9,7 +9,7 @@ repository.workspace = true
 
 [dependencies]
 soundz-time.workspace = true
-soundz-audio-io.workspace = true
+craft-audio.workspace = true
 soundz-midi.workspace = true
 serde.workspace = true
 serde_json.workspace = true
