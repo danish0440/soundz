@@ -9,7 +9,7 @@ repository.workspace = true
 
 [dependencies]
 soundz-time.workspace = true
-soundz-audio-io.workspace = true
+craft-audio.workspace = true
 soundz-midi.workspace = true
 soundz-dsp.workspace = true
 soundz-clap-host.workspace = true
@@ -24,6 +24,9 @@ thiserror.workspace = true
 log.workspace = true
 zip.workspace = true
 craft-docpath.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+winsafe = { version = "0.0.29", features = ["kernel"] }
 
 [dev-dependencies]
 proptest.workspace = true
