@@ -9,7 +9,7 @@ repository.workspace = true
 
 [dependencies]
 soundz-time.workspace = true
-soundz-audio-io.workspace = true
+craft-audio.workspace = true
 soundz-model.workspace = true
 soundz-mix.workspace = true
 soundz-dsp.workspace = true
