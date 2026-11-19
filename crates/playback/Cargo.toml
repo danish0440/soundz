@@ -1,6 +1,6 @@
 [package]
 name = "soundz-playback"
-description = "SoundZ audio device I/O: realtime playback and recording through the mix engine"
+description = "SoundZ audio and MIDI device I/O: realtime playback and recording through the mix engine"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -9,7 +9,7 @@ repository.workspace = true
 
 [dependencies]
 soundz-time.workspace = true
-soundz-audio-io.workspace = true
+craft-audio.workspace = true
 soundz-model.workspace = true
 soundz-mix.workspace = true
 soundz-dsp.workspace = true
@@ -21,6 +21,10 @@ cpal.workspace = true
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 cpal = { workspace = true, features = ["wasm-bindgen"] }
+
+# MIDI devices (ALSA sequencer, CoreMIDI, WinMM). Elsewhere there is no MIDI input (midi.rs).
+[target.'cfg(any(target_os = "linux", target_os = "macos", target_os = "windows"))'.dependencies]
+midir.workspace = true
 
 [features]
 # ASIO on Windows (cpal's ASIO host). Off by default: building it downloads Steinberg's ASIO SDK
