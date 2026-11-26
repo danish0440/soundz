@@ -52,17 +52,22 @@ fn an_exit_without_quit_offers_unsaved_changes_at_the_next_launch() {
     let path = dir.join("Song.scraft");
     let mut first = launch(&root);
     first.run("session.save_as", json!({"path": path})).unwrap();
+    // Leftovers are offered only when newer than their session file; on filesystems with coarse
+    // timestamps (tmpfs) the save and the autosave right after it can share one mtime (#579).
+    let then = std::time::SystemTime::now() - std::time::Duration::from_secs(1);
+    std::fs::File::options().write(true).open(&path).unwrap().set_modified(then).unwrap();
     first.run("track.new", json!({"name": "Vocal"})).unwrap();
     first.close_autosave();
     drop(first);
 
-    let mut h = Harness::builder().with_size(vec2(1600.0, 1000.0)).build_ui_state(
-        |ui, app: &mut SoundApp| {
-            app.logic(&ui.ctx().clone());
-            app.ui(ui);
-        },
-        launch(&root),
-    );
+    let mut h =
+        Harness::builder().with_context_setup(soundz_ui_egui::framework::install_headless).with_size(vec2(1600.0, 1000.0)).build_ui_state(
+            |ui, app: &mut SoundApp| {
+                app.logic(&ui.ctx().clone());
+                app.ui(ui);
+            },
+            launch(&root),
+        );
     h.run_steps(3);
     h.get_by_label("Recover").click();
     h.run_steps(3);
@@ -81,13 +86,14 @@ fn every_change_is_autosaved_within_a_second() {
     let _one = one_at_a_time();
     let dir = folder("recovery-changes");
     let root = dir.join("Autosave");
-    let mut h = Harness::builder().with_size(vec2(1600.0, 1000.0)).build_ui_state(
-        |ui, app: &mut SoundApp| {
-            app.logic(&ui.ctx().clone());
-            app.ui(ui);
-        },
-        launch(&root),
-    );
+    let mut h =
+        Harness::builder().with_context_setup(soundz_ui_egui::framework::install_headless).with_size(vec2(1600.0, 1000.0)).build_ui_state(
+            |ui, app: &mut SoundApp| {
+                app.logic(&ui.ctx().clone());
+                app.ui(ui);
+            },
+            launch(&root),
+        );
     for name in ["Vocal", "Bass"] {
         h.state_mut().run("track.new", json!({"name": name})).unwrap();
         h.run_steps(1);
