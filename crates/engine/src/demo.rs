@@ -2,8 +2,9 @@
 //! a 24-bar groove at 104 BPM with drums, bass, keys, pad, lead, a reverb aux and a master.
 
 use crate::Engine;
-use soundz_audio_io::{AudioBuffer, FileFormat};
+use craft_audio::AudioBuffer;
 use soundz_midi::{Note, Sequence};
+use soundz_model::FileFormat;
 use soundz_model::{ChannelFormat, Clip, Fade, FadeShape, Insert, MarkerKind, Route, SendSlot, Session, TrackKind};
 use soundz_time::{SampleRate, TICKS_PER_QUARTER};
 
